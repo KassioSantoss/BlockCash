@@ -1,4 +1,7 @@
-package br.com.kassin.block.interfaces;
+package br.com.kassin.service;
 
-public class BlockBreakService {
+import org.bukkit.event.block.BlockBreakEvent;
+
+public interface BlockBreakService {
+    void blockBreak(final BlockBreakEvent event);
 }
