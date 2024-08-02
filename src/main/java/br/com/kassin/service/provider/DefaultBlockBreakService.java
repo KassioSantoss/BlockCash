@@ -16,10 +16,10 @@ public final class DefaultBlockBreakService implements BlockBreakService {
     private final Economy economy = BlockCashPlugin.economy;
 
     @Override
-    public void blockBreak(BlockBreakEvent event) {
-        Player player = event.getPlayer();
-        Block block = event.getBlock();
-        ItemStack itemInHand = player.getInventory().getItemInMainHand();
+    public void blockBreak(final BlockBreakEvent event) {
+        final Player player = event.getPlayer();
+        final Block block = event.getBlock();
+        final ItemStack itemInHand = player.getInventory().getItemInMainHand();
 
         if (!isPickaxe(itemInHand.getType())) {
             MessageUtils.Chat.sendMessage(player, "&bVocê precisa quebrar com uma picareta para ganhar dinheiro.");
@@ -28,19 +28,19 @@ public final class DefaultBlockBreakService implements BlockBreakService {
 
         if (!(block.getType() == Material.STONE)) return;
 
-        int random = BlockBreakRandomRewardTask.RANDOM_NUMBER;
+        final int random = BlockBreakRandomRewardTask.RANDOM_NUMBER;
 
         if (!(random < 10)) return;
 
-        giveMoney(event);
+        giveRewards(event);
     }
 
-    public void giveMoney(BlockBreakEvent event) {
+    private void giveRewards(final BlockBreakEvent event) {
         economy.depositPlayer(event.getPlayer(), 10);
-        MessageUtils.ActionBar.sendActionBar(event.getPlayer(), "&aVocê recebeu: 10$");
+        MessageUtils.ActionBar.sendActionBar(event.getPlayer(), "&f&l| &aVocê recebeu: &610$ &f&l|");
     }
 
-    private boolean isPickaxe(Material material) {
+    private boolean isPickaxe(final Material material) {
         return material == Material.NETHERITE_PICKAXE ||
                 material == Material.DIAMOND_PICKAXE ||
                 material == Material.GOLDEN_PICKAXE ||
