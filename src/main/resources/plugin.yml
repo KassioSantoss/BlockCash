@@ -1,0 +1,4 @@
+name: blockcash-plugin
+version: '1.0'
+main: br.com.kassin.BlockCashPlugin
+api-version: '1.20'
