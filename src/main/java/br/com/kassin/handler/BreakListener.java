@@ -1,7 +1,6 @@
 package br.com.kassin.handler;
 
 import br.com.kassin.BlockCashPlugin;
-import br.com.kassin.service.BlockBreakService;
 import br.com.kassin.utils.MessageUtils;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
@@ -13,7 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-public final class BlockBreakListener implements Listener, BlockBreakService {
+public final class BreakListener implements Listener {
 
     private final Economy economy = BlockCashPlugin.economy;
 
@@ -22,8 +21,7 @@ public final class BlockBreakListener implements Listener, BlockBreakService {
         blockBreak(event.getPlayer(), event.getBlock());
     }
 
-    @Override
-    public void blockBreak(final Player player, final Block block) {
+    private void blockBreak(final Player player, final Block block) {
         final ItemStack itemInHand = player.getInventory().getItemInMainHand();
 
         if (!(block.getType() == Material.STONE)) return;

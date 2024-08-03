@@ -1,6 +1,6 @@
 package br.com.kassin;
 
-import br.com.kassin.handler.BlockBreakListener;
+import br.com.kassin.handler.BreakListener;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -24,7 +24,7 @@ public final class BlockCashPlugin extends JavaPlugin {
         }
 
         registerListeners(
-            new BlockBreakListener()
+            new BreakListener()
         );
 
     }
