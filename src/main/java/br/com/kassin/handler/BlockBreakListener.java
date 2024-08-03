@@ -15,9 +15,8 @@ public final class BlockBreakListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onBreak(final BlockBreakEvent event) {
+    public void onBreak(BlockBreakEvent event) {
         blockBreakService.blockBreak(event);
-
     }
 
 }

@@ -10,9 +10,9 @@ public class BlockBreakRandomRewardTask extends BukkitRunnable {
     private BlockBreakRandomRewardTask() {
     }
 
-    public static void start() {
+    public static void start(int delay,int period) {
         BlockBreakRandomRewardTask task = new BlockBreakRandomRewardTask();
-        task.runTaskTimer(BlockCashPlugin.getInstance(), 0, 10);
+        task.runTaskTimer(BlockCashPlugin.getInstance(), delay, period);
     }
 
     @Override

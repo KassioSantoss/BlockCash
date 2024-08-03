@@ -21,23 +21,25 @@ public final class DefaultBlockBreakService implements BlockBreakService {
         final Block block = event.getBlock();
         final ItemStack itemInHand = player.getInventory().getItemInMainHand();
 
+        if (!(block.getType() == Material.STONE)) return;
+
         if (!isPickaxe(itemInHand.getType())) {
             MessageUtils.Chat.sendMessage(player, "&bVocê precisa quebrar com uma picareta para ganhar dinheiro.");
             return;
         }
 
-        if (!(block.getType() == Material.STONE)) return;
-
         final int random = BlockBreakRandomRewardTask.RANDOM_NUMBER;
+
+        player.sendMessage("random number: " + random);
 
         if (!(random < 10)) return;
 
-        giveRewards(event);
+        giveRewards(player);
     }
 
-    private void giveRewards(final BlockBreakEvent event) {
-        economy.depositPlayer(event.getPlayer(), 10);
-        MessageUtils.ActionBar.sendActionBar(event.getPlayer(), "&f&l| &aVocê recebeu: &610$ &f&l|");
+    private void giveRewards(final Player player) {
+        economy.depositPlayer(player, 10);
+        MessageUtils.ActionBar.sendActionBar(player, "&f&l| &aVocê recebeu: &610$ &f&l|");
     }
 
     private boolean isPickaxe(final Material material) {

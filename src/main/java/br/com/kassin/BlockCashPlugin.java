@@ -1,22 +1,20 @@
 package br.com.kassin;
 
 import br.com.kassin.handler.BlockBreakListener;
-import br.com.kassin.service.BlockBreakService;
 import br.com.kassin.service.provider.DefaultBlockBreakService;
 import br.com.kassin.task.BlockBreakRandomRewardTask;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class BlockCashPlugin extends JavaPlugin {
 
     public static Economy economy;
-    private static BlockCashPlugin instance;
 
-    @Override
-    public void onLoad() {
-        instance = this;
+    public static Plugin getInstance() {
+        return JavaPlugin.getPlugin(BlockCashPlugin.class);
     }
 
     @Override
@@ -26,7 +24,8 @@ public final class BlockCashPlugin extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        BlockBreakRandomRewardTask.start();
+
+        BlockBreakRandomRewardTask.start(0, 10);
         registerEvents();
     }
 
@@ -37,7 +36,7 @@ public final class BlockCashPlugin extends JavaPlugin {
 
     private void registerEvents() {
         DefaultBlockBreakService defaultBlockBreakService = new DefaultBlockBreakService();
-        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(defaultBlockBreakService), this);
+        getServer().getPluginManager().registerEvents(new BlockBreakListener(defaultBlockBreakService), this);
     }
 
     private boolean setupEconomy() {
@@ -48,7 +47,4 @@ public final class BlockCashPlugin extends JavaPlugin {
         return true;
     }
 
-    public static BlockCashPlugin getInstance() {
-        return instance;
-    }
 }
