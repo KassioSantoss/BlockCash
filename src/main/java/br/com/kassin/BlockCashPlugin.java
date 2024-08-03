@@ -1,10 +1,8 @@
 package br.com.kassin;
 
 import br.com.kassin.handler.BlockBreakListener;
-import br.com.kassin.service.provider.DefaultBlockBreakService;
-import br.com.kassin.task.BlockBreakRandomRewardTask;
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,8 +23,10 @@ public final class BlockCashPlugin extends JavaPlugin {
             return;
         }
 
-        BlockBreakRandomRewardTask.start(0, 10);
-        registerEvents();
+        registerListeners(
+            new BlockBreakListener()
+        );
+
     }
 
     @Override
@@ -34,9 +34,10 @@ public final class BlockCashPlugin extends JavaPlugin {
 
     }
 
-    private void registerEvents() {
-        DefaultBlockBreakService defaultBlockBreakService = new DefaultBlockBreakService();
-        getServer().getPluginManager().registerEvents(new BlockBreakListener(defaultBlockBreakService), this);
+    private void registerListeners(Listener... listeners) {
+        for (Listener listener : listeners) {
+            getServer().getPluginManager().registerEvents(listener, this);
+        }
     }
 
     private boolean setupEconomy() {
